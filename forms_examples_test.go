@@ -5,7 +5,7 @@ package vebben_test
 
 import (
 	"fmt"
-	"net/http/httptest"
+	"net/http"
 
 	"github.com/biztos/vebben"
 )
@@ -25,14 +25,14 @@ func ExampleDecodeForm() {
 	target := &ExampleFoo{}
 
 	// A validation failure:
-	r := httptest.NewRequest("GET", "/example?foo=bar", nil)
+	r, _ := http.NewRequest("GET", "/example?foo=bar", nil)
 	err := vebben.DecodeForm(r, specs, target)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
 	// And a success:
-	r2 := httptest.NewRequest("GET", "/example?foo=Bärfuß&bar=23", nil)
+	r2, _ := http.NewRequest("GET", "/example?foo=Bärfuß&bar=23", nil)
 	err = vebben.DecodeForm(r2, specs, target)
 	if err != nil {
 		fmt.Println(err.Error())

@@ -203,7 +203,7 @@ func (fs *FormSpec) Convert(raw string) (interface{}, error) {
 	val, ok := formSpecTypeMap[fs.Type].converter(raw)
 	if !ok {
 		// TODO: consider bubbling up errors for things like int out of range.
-		return nil, fmt.Errorf("%s could not be converted to %s.",
+		return nil, fmt.Errorf("%s could not be converted to %s",
 			fs.Name, fs.Type)
 	}
 	return val, nil
@@ -220,7 +220,7 @@ func (fs *FormSpec) Convert(raw string) (interface{}, error) {
 func (fs *FormSpec) Copy(key, name string) *FormSpec {
 	key = strings.TrimSpace(key)
 	if key == "" {
-		panic("Empty FormSpec key.")
+		panic("Empty FormSpec key")
 	}
 	name = strings.TrimSpace(name)
 	if name == "" {
@@ -296,7 +296,7 @@ func (fs *FormSpec) initLimit() {
 			panic("Error parsing int for range limit: " + err.Error())
 		}
 		if upper < lower {
-			panic("Bad range limit: upper < lower.")
+			panic("Bad range limit: upper < lower")
 		}
 		fs.limitRangeInt = []int64{lower, upper}
 		return
@@ -317,7 +317,7 @@ func (fs *FormSpec) initLimit() {
 			panic("Error parsing float for range limit: " + err.Error())
 		}
 		if upper < lower {
-			panic("Bad range limit: upper < lower.")
+			panic("Bad range limit: upper < lower")
 		}
 		fs.limitRangeFloat = []float64{lower, upper}
 		return
@@ -428,7 +428,7 @@ func DecodeForm(f FormValuer, specs []*FormSpec, target interface{}) error {
 			input = strings.TrimSpace(input)
 		}
 		if spec.Required && input == "" {
-			errors = append(errors, fmt.Errorf("%s is required.", spec.Name))
+			errors = append(errors, fmt.Errorf("%s is required", spec.Name))
 			continue
 		}
 		// Convert and validate!
@@ -469,23 +469,23 @@ func stringValidator(fs *FormSpec, v interface{}) error {
 
 	s, ok := v.(string)
 	if !ok {
-		return fmt.Errorf("%s (%T) is not a string.", fs.Name, v)
+		return fmt.Errorf("%s (%T) is not a string", fs.Name, v)
 	}
 
 	slen := GlyphLength(s)
 	if fs.limitLength > 0 && slen != fs.limitLength {
-		return fmt.Errorf("%s has the wrong length.", fs.Name)
+		return fmt.Errorf("%s has the wrong length", fs.Name)
 	}
 	if len(fs.limitRangeInt) == 2 {
 		if int64(slen) < fs.limitRangeInt[0] {
-			return fmt.Errorf("%s is too short.", fs.Name)
+			return fmt.Errorf("%s is too short", fs.Name)
 		}
 		if int64(slen) > fs.limitRangeInt[1] {
-			return fmt.Errorf("%s is too long.", fs.Name)
+			return fmt.Errorf("%s is too long", fs.Name)
 		}
 	}
 	if fs.limitRegexp != nil && !fs.limitRegexp.MatchString(s) {
-		return fmt.Errorf("%s has the wrong format.", fs.Name)
+		return fmt.Errorf("%s has the wrong format", fs.Name)
 	}
 	if len(fs.limitListString) > 0 {
 		have := false
@@ -496,7 +496,7 @@ func stringValidator(fs *FormSpec, v interface{}) error {
 			}
 		}
 		if !have {
-			return fmt.Errorf("%s has the wrong value.", fs.Name)
+			return fmt.Errorf("%s has the wrong value", fs.Name)
 		}
 	}
 
@@ -507,21 +507,21 @@ func intValidator(fs *FormSpec, v interface{}) error {
 
 	i, ok := v.(int)
 	if !ok && fs.Type == "int" {
-		return fmt.Errorf("%s (%T) is not an integer.", fs.Name, v)
+		return fmt.Errorf("%s (%T) is not an integer", fs.Name, v)
 	}
 	// Everything else is the same for int and int64.
 	return int64Validator(fs, int64(i))
 
 	// can't len(int) so we cheat...
 	if fs.limitLength > 0 && len(fmt.Sprintf("%d", i)) != fs.limitLength {
-		return fmt.Errorf("%s has the wrong length.", fs.Name)
+		return fmt.Errorf("%s has the wrong length", fs.Name)
 	}
 	if len(fs.limitRangeInt) == 2 {
 		if int64(i) < fs.limitRangeInt[0] {
-			return fmt.Errorf("%s is too short.", fs.Name)
+			return fmt.Errorf("%s is too short", fs.Name)
 		}
 		if int64(i) > fs.limitRangeInt[1] {
-			return fmt.Errorf("%s is too long.", fs.Name)
+			return fmt.Errorf("%s is too long", fs.Name)
 		}
 	}
 
@@ -536,7 +536,7 @@ func intValidator(fs *FormSpec, v interface{}) error {
 			}
 		}
 		if !have {
-			return fmt.Errorf("%s has the wrong value.", fs.Name)
+			return fmt.Errorf("%s has the wrong value", fs.Name)
 		}
 	}
 
@@ -547,19 +547,19 @@ func int64Validator(fs *FormSpec, v interface{}) error {
 
 	i, ok := v.(int64)
 	if !ok && fs.Type == "int" {
-		return fmt.Errorf("%s (%T) is not a 64-bit integer.", fs.Name, v)
+		return fmt.Errorf("%s (%T) is not a 64-bit integer", fs.Name, v)
 	}
 
 	// can't len(int) so we cheat...
 	if fs.limitLength > 0 && len(fmt.Sprintf("%d", i)) != fs.limitLength {
-		return fmt.Errorf("%s has the wrong length.", fs.Name)
+		return fmt.Errorf("%s has the wrong length", fs.Name)
 	}
 	if len(fs.limitRangeInt) == 2 {
 		if i < fs.limitRangeInt[0] {
-			return fmt.Errorf("%s is too low.", fs.Name)
+			return fmt.Errorf("%s is too low", fs.Name)
 		}
 		if i > fs.limitRangeInt[1] {
-			return fmt.Errorf("%s is too high.", fs.Name)
+			return fmt.Errorf("%s is too high", fs.Name)
 		}
 	}
 
@@ -574,7 +574,7 @@ func int64Validator(fs *FormSpec, v interface{}) error {
 			}
 		}
 		if !have {
-			return fmt.Errorf("%s has the wrong value.", fs.Name)
+			return fmt.Errorf("%s has the wrong value", fs.Name)
 		}
 	}
 
@@ -586,7 +586,7 @@ func floatValidator(fs *FormSpec, v interface{}) error {
 	f, ok := v.(float64)
 	if !ok {
 		return fmt.Errorf(
-			"%s is not a 64-bit floating point number, but a %T.",
+			"%s is not a 64-bit floating point number, but a %T",
 			fs.Name, v)
 	}
 
@@ -595,10 +595,10 @@ func floatValidator(fs *FormSpec, v interface{}) error {
 	// TODO: rethink the whole range limit idea... maybe stricter typing?
 	if len(fs.limitRangeFloat) == 2 {
 		if f < fs.limitRangeFloat[0] {
-			return fmt.Errorf("%s is too low.", fs.Name)
+			return fmt.Errorf("%s is too low", fs.Name)
 		}
 		if f > fs.limitRangeFloat[1] {
-			return fmt.Errorf("%s is too high.", fs.Name)
+			return fmt.Errorf("%s is too high", fs.Name)
 		}
 	}
 

@@ -40,7 +40,7 @@ func ExampleDecodeForm() {
 	fmt.Println(target.Foo, target.Bar)
 
 	// Output:
-	// Foo has the wrong length.
-	// Bar Percentage is required.
+	// Foo has the wrong length
+	// Bar Percentage is required
 	// Bärfuß 23
 }

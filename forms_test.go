@@ -182,7 +182,7 @@ func Test_FormSpec_Copy_RequiresKey(t *testing.T) {
 	willPanic := func() { fs.Copy("", "") }
 
 	testig.AssertPanicsWith(t, willPanic,
-		"Empty FormSpec key.",
+		"Empty FormSpec key",
 		"got expected panic")
 
 }
@@ -235,7 +235,7 @@ func Test_DecodeForm_MissingRequired(t *testing.T) {
 	err := vebben.DecodeForm(f, specs, &SimpleType{})
 	if assert.Error(err, "error returned") {
 		if assert.IsType(&vebben.MultiError{}, err, "error has correct type") {
-			assert.Equal("foo is required.\nbar is required.",
+			assert.Equal("foo is required\nbar is required",
 				err.Error(), "stringified error as expected")
 		}
 	}

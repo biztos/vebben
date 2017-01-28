@@ -32,7 +32,7 @@ func GlyphLength(s string) int {
 	iter.InitString(norm.NFKD, s)
 	count := 0
 	for !iter.Done() {
-		count += 1
+		count++
 		iter.Next()
 	}
 	return count

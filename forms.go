@@ -72,8 +72,8 @@ type FormValuer interface {
 	FormValue(string) string
 }
 
-// MultiError is a type of Error that contains a slice of errors.  In the
-// standard Error method they are joined with a newline, but if case to
+// MultiError is a type of error that contains a slice of errors.  In the
+// standard Error method they are joined with a newline, but if cast to
 // type the errors may be examined (or formatted) individually.
 type MultiError struct {
 	Errors []error

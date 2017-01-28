@@ -1,0 +1,16 @@
+language: go
+go:
+- 1.5
+- tip
+install:
+- go get github.com/stretchr/testify/assert
+- go get github.com/biztos/testig
+- go get golang.org/x/text/unicode/norm
+- go get github.com/mattn/goveralls
+script:
+- go test -v -covermode=count -coverprofile=coverage.out
+- $(go env GOPATH | awk 'BEGIN{FS=":"} {print $1}')/bin/goveralls -coverprofile=coverage.out
+  -service=travis-ci -repotoken=$COVERALLS_TOKEN
+env:
+  global:
+    secure: Lf/tZVtinFk+U2e9q09tx/Tt24RT31MgxYFHd4gi6HmySVYNz+oeeSxScnTmSDsGTXwTD/Jw/pfkzmi30XcTzIWxFEvR6WeOrgloBvhIwA9s0H/W8lC1ZOxcpTXgCTU2pdQ1UtFM3K8/1mFtkR5Sx0hxPPCXGxKCCkbhvCCNvuwSG3eZjvLHGDSXPpEThOM7/XXqAQZ9AKZ3lqxhSdTEv3sH1zBQ3hAJwyveyFAPFD2ckUXN8/cvMPHfFz0mmURlLfCskEfAJNvi2zUUSVhbgPEimiedSE9wF9n/ImPIHP3CxNopeJCOIIyeiBwSGcUKb5i786uQ+9fn0H32CTN1GMQYOSKbJf1vM9D6wFyHLsU/vWghCvqVlsF8ALMihxpMseRPYbs11tna4XX+xJ0G/a17u1h+kraNew234UErIVuXtI2QWqd0NeCdk/EknUhT8oyxdozpfoLs3+m9VqQXyZrTATOcAXJD2V7vLZx9Xy9SV//uusyfOGChpsPsHBUZklD/vh4yaUHeI1B5NCB4HeABF8Xum/vrgk5P99NrtAn56KZ41LqC+dx9GLOmx9ZCC2kUCF3aEAuiOdcyGgBMQx8XyL+UXDpJs0GVZPVhRI9GFcrEfEuPBhiE5mQGSSy15Ec9uxtH6EpCMPfn5IlpvWUEl9p1rA/3wP2rLJDsfog=

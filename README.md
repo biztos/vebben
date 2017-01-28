@@ -2,6 +2,17 @@
 
 A jarful of golang web glue.
 
+[![GoDoc][b1]][doc] [![Build Status][b2]][ci] [![Coverage Status][b3]][cov]
+
+
+[b1]: https://godoc.org/github.com/biztos/vebben?status.svg
+[doc]: https://godoc.org/github.com/biztos/vebben
+[b2]: https://travis-ci.org/biztos/vebben.svg?branch=master
+[ci]: https://travis-ci.org/biztos/vebben
+[b3]: https://coveralls.io/repos/github/biztos/vebben/badge.svg
+[cov]: https://coveralls.io/github/biztos/vebben
+
+
 Thank you for stopping by.  I hope you find something useful here, even if
 it's only the counter-example of my preoccupations. :-)
 
@@ -19,9 +30,6 @@ ones I found do what I needed.
 And it may change at any time.  If you use it (I'd be flattered) be sure to
 vendor it in, at least until I reach a `1.0` sort of release.
 
-## Documentation
-
-https://godoc.org/github.com/biztos/vebben
 
 ## Example
 

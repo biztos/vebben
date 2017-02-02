@@ -25,13 +25,17 @@ eternal drawing board but will eventually be open-source; and a
 salon-management tool in Google App Engine that will remain private.
 
 Right now, it's just a form processor I built because I couldn't make the
-ones I found do what I needed.
+ones I found do what I needed; and a collection of utility functions for
+standard [templates][tmpl] that leans *heavily* on the work of
+[Kyoung-chan Lee][leekchan].
 
 And it may change at any time.  If you use it (I'd be flattered) be sure to
 vendor it in, at least until I reach a `1.0` sort of release.
 
+[tmpl]: https://godoc.org/html/template
+[leekchan]: http://leekchan.com
 
-## Example
+## FormSpec Example
 
 
 ```go
@@ -87,6 +91,59 @@ curl -i http://localhost:8080/ -d variant=FLUB -d size=4 -d strength=99.4522
 ```
 
 ...and variations thereof.
+
+## FuncMap Example
+
+```go
+
+dot := map[string]interface{}{
+	"Title": "Hello World!",
+	"Id":    "examples",
+	"Prices": []int{
+		15,
+		11800002,
+		3582,
+		999231,
+		10012,
+	},
+}
+var tsrc = `<h1 id="{{ .Id | capfirst }}">{{ .Title }}</h1>
+<h2>Top Three Prices:</h2>
+<ol>
+{{- $p := sortintsdesc .Prices | truncintsto 3 }}{{ range $p }}
+<li>${{ intcomma . }}</li>
+{{- end }}
+</ol>
+`
+
+tmpl, err := template.New("test").Funcs(vebben.NewFuncMap()).Parse(tsrc)
+if err != nil {
+	panic(err)
+}
+if err := tmpl.Execute(os.Stdout, dot); err != nil {
+	panic(err)
+}
+
+// Output:
+// <h1 id="Examples">Hello World!</h1>
+// <h2>Top Three Prices:</h2>
+// <ol>
+// <li>$11,800,002</li>
+// <li>$999,231</li>
+// <li>$10,012</li>
+// </ol>
+
+```
+
+## Acknowledgements
+
+The following packages have helped tremendously, and have even wittier names
+than this package.  All kudos to their authors!
+
+* Testify by Mat Ryer and Tyler Bunnel
+    * https://github.com/stretchr/testify
+* GTF by Kyoung-chan Lee
+    * https://github.com/leekchan/gtf
 
 ## About the Name
 

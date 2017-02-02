@@ -1,6 +1,6 @@
 # vebben
 
-A jarful of golang web glue.
+A jarful of golang web glue.  Requires Go 1.6 or newer.
 
 [![GoDoc][b1]][doc] [![Build Status][b2]][ci] [![Coverage Status][b3]][cov]
 

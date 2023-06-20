@@ -1,12 +1,12 @@
 # vebben
 
-A jarful of golang web glue.  Requires Go 1.6 or newer.
+A jarful of golang web glue.
 
-[![GoDoc][b1]][doc] [![Build Status][b2]][ci] [![Coverage Status][b3]][cov]
+[![GoDoc][b1]][doc] [![Coverage Status][b3]][cov]
 
 
-[b1]: https://godoc.org/github.com/biztos/vebben?status.svg
-[doc]: https://godoc.org/github.com/biztos/vebben
+[b1]: https://pkg.go.dev/badge/github.com/biztos/vebben
+[doc]: https://pkg.go.dev/github.com/biztos/vebben
 [b2]: https://travis-ci.org/biztos/vebben.svg?branch=master
 [ci]: https://travis-ci.org/biztos/vebben
 [b3]: https://coveralls.io/repos/github/biztos/vebben/badge.svg
@@ -16,7 +16,17 @@ A jarful of golang web glue.  Requires Go 1.6 or newer.
 Thank you for stopping by.  I hope you find something useful here, even if
 it's only the counter-example of my preoccupations. :-)
 
-## WORK IN PROGRESS!
+## WARNING! ALPHA SOFTWARE!
+
+
+This package has not been tested much, and the author hasn't actually used it
+in production in years. Web templating has come a long way since `vebben` was
+written, and you should probably use something else!
+
+Like all software, it probably contains bugs, and like all new software it 
+probably contains a lot of them. 🪲🪲🪲
+
+---
 
 I don't know how much this will encompass in the end, but my goal is to
 include in the `vebben` package all web-dev helpers I write in the course of
@@ -32,7 +42,7 @@ standard [templates][tmpl] that leans *heavily* on the work of
 And it may change at any time.  If you use it (I'd be flattered) be sure to
 vendor it in, at least until I reach a `1.0` sort of release.
 
-[tmpl]: https://godoc.org/html/template
+[tmpl]: https://pkg.go.dev/html/template
 [leekchan]: http://leekchan.com
 
 ## FormSpec Example

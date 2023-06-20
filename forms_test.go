@@ -11,7 +11,6 @@ import (
 	// Standard:
 	"encoding/json"
 	"errors"
-	"fmt"
 	"testing"
 	"time"
 
@@ -215,10 +214,18 @@ func Test_FormSpec_Copy(t *testing.T) {
 	assert.Equal("The Second", fs2.Name, "Name is from new input")
 	assert.Equal("some-limit", fs2.Limit, "Limit is from the source")
 
-	// Hmm, having some trouble comparing func types here.
-	s1 := fmt.Sprintf("%#v", fs.Validator)
-	s2 := fmt.Sprintf("%#v", fs2.Validator)
-	assert.EqualValues(s1, s2, "Validator func is from the source")
+	// Originally wanted to prove this is the *same* func but it looks like
+	// that was deprecated at some point in Go, which is annoying -- I'm quite
+	// sure it worked when I wrote it, because I would not have thought this
+	// up as a speculative thing.
+	//
+	// Here's a good writeup about it: https://stackoverflow.com/a/34901677/1191379
+	// Following the playground link in that answer, you'll see that it's
+	// `go vet` that is blocking us.  But whatever, point taken: don't compare
+	// functions, for whatever reason.
+	//
+	// Thought about comparing the signatures, which Sprintf("%T",f) will get
+	// us, but that's silly, the compiler already did that.
 
 }
 

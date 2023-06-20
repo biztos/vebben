@@ -38,5 +38,7 @@ func main() {
 		}
 
 	})
+	fmt.Println("listening on 8080 for POST such as:")
+	fmt.Println("curl -i http://localhost:8080/ -d size=2 -d variant=foop -d strength=3.4")
 	fmt.Println(http.ListenAndServe(":8080", nil))
 }
